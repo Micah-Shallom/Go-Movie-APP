@@ -106,5 +106,4 @@ func main() {
 		fmt.Printf("The Server failed to start")
 		log.Fatal(err)
 	}
-
 }
