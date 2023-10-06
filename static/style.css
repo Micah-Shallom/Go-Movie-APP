@@ -1,0 +1,19 @@
+*, 
+*::before,
+*::after {
+    padding: None;
+    margin: None;
+}
+
+body {
+    background-color: rgb(2, 72, 72);
+    color: white;
+}
+
+.container {
+    text-align: center;
+}
+
+/* .container .header {
+
+} */
