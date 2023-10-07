@@ -5,40 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Go Movie Application</title>
     <link rel="stylesheet" type="text/css" href="./style.css">
-    <script src="./script.js"></script>
+    
 </head>
 <body>
+
     <div class="container">
         <header class="header">
             <p>Go Movie Application</p>
         </header>
         <div class="body">
-            
+            <h1 class="title">Add your favourite movie</h1>
+
             <form action="" id="movie-form">
                 <div class="input_field">
-                    <label for="id">ID</label>
+                    <label for="id">ID</label><br/>
                     <input type="text" name="name" placeholder="Movie ID" id="id" required>
                 </div>
                 <div class="input_field">
-                    <label for="isbn">ISBN</label>
-                    <input type="text" name="isbn" placeholder="Enter ISBN" id="isbn">
+                    <label for="isbn">ISBN</label><br/>
+                    <input type="text" name="isbn" placeholder="Enter ISBN" id="isbn" required>
                 </div>
                 <div class="input_field">
-                    <label for="title">ID</label>
-                    <input type="text" name="title" placeholder="Enter Title" id="title">
+                    <label for="title">Title</label><br/>
+                    <input type="text" name="title" placeholder="Enter Title" id="title" required>
                 </div>
                 <div class="input_field">
-                    <label for="dir-firstname">Director Firstname</label>
-                    <input type="text" name="Enter Director Firstname" id="dir-firstname">
+                    <label for="dir-firstname">Director Firstname</label><br/>
+                    <input type="text" name="Enter Director Firstname" placeholder="Enter director's Firstname" id="dir-firstname" required><br/>
 
-                    <label for="dir-lastname">Director LastName</label>
-                    <input type="text" name="Enter Director Lastname" id="dir-lastname">
+                    <label for="dir-lastname">Director LastName</label><br/>
+                    <input type="text" name="Enter Director Lastname" placeholder="Enter director's lastname" id="dir-lastname" required>
                 </div>
                 <div class="input_field">
-                    <button type="submit"> Submit </button>
+                    <button id="submit-btn" type="submit"> Submit Movie </button>
                 </div>
             </form>
+
+            <h1>List Current Movies</h1>
+            <div class="movie-container">
+                <!-- listed movies will be populated in here  -->
+            </div>
+            <button id="list-btn" type="submit">List Movies</button>
         </div>
     </div>
+    <script src="./script.js"></script>
 </body>
 </html>
