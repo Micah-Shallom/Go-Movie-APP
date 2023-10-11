@@ -50,8 +50,7 @@ http:localhost:8000
 
 - **GET** `/movies`
 - **Mock Up FrontEnd**
-- ![1696507010258.png](https://imgur.com/WZNKuqS.png)
-
+- ![get](https://github.com/Micah-Shallom/Go-Movie-APP/assets/64049432/33c6143a-cfdb-4583-883a-3b4f5b4051d9)
 ### Get a specific movie by ID
 
 - **GET** `/movies/{id}`
@@ -60,7 +59,8 @@ http:localhost:8000
 
 - **POST** `/movies`
 - **Mock Up FrontEnd**
-- ![1696507079035.png](https://imgur.com/jZx5AuP.png)
+- ![post](https://github.com/Micah-Shallom/Go-Movie-APP/assets/64049432/05b60567-2588-4fc5-9370-13591e177bb3)
+
 
 ### Update an existing movie record
 
