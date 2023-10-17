@@ -1,16 +1,15 @@
 package config
 
 import (
-	"database/sql"
 	"fmt"
 	"os"
 
 	"github.com/joho/godotenv"
-	_ "github.com/libsql/libsql-client-go/libsql"
-	_ "modernc.org/sqlite"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-var db *sql.DB
+var db *gorm.DB
 
 func Connect() {
 	//Load environment variables
@@ -20,13 +19,13 @@ func Connect() {
 		os.Exit(1)
 	}
 
-	//Get db credentials from environment variable
-	dbToken := os.Getenv("DB_URL")
-	dbName := os.Getenv("DB_NAME")
+	// Get db credentials from environment variable
+	dbname := os.Getenv("dbname")
+	dbpassword := os.Getenv("dbpassword")
 	
-	var dbUrl = "libsql://"+dbName+".turso.io?authToken="+dbToken
+	var dbUrl = dbname+":"+dbpassword+"@tcp(localhost:9000)/moviesdb?charset=utf8&parseTime=True&loc=Local"
 
-	d, err := sql.Open("libsql", dbUrl)
+	d, err := gorm.Open("mysql", dbUrl)
 
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "failed to open db %s: %s", dbUrl, err)
@@ -36,6 +35,6 @@ func Connect() {
 	db = d
 }
 
-func GetDB() *sql.DB {
+func GetDB() *gorm.DB {
 	return db
 }

@@ -3,14 +3,21 @@ module github.com/Micah-Shallom
 go 1.21.1
 
 require (
+	github.com/gorilla/mux v1.8.0
+	github.com/jinzhu/gorm v1.9.16
+	github.com/joho/godotenv v1.5.1
+	github.com/libsql/libsql-client-go v0.0.0-20231009080222-ee74a605841b
+	modernc.org/sqlite v1.26.0
+)
+
+require (
 	github.com/antlr/antlr4/runtime/Go/antlr/v4 v4.0.0-20230512164433-5d1fd1a340c9 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
+	github.com/go-sql-driver/mysql v1.5.0 // indirect
 	github.com/google/uuid v1.3.0 // indirect
-	github.com/gorilla/mux v1.8.0 // indirect
-	github.com/joho/godotenv v1.5.1 // indirect
+	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
 	github.com/klauspost/compress v1.15.15 // indirect
-	github.com/libsql/libsql-client-go v0.0.0-20231009080222-ee74a605841b // indirect
 	github.com/libsql/sqlite-antlr4-parser v0.0.0-20230802215326-5cb5bb604475 // indirect
 	github.com/mattn/go-isatty v0.0.18 // indirect
 	github.com/mattn/go-sqlite3 v1.14.17 // indirect
@@ -27,7 +34,6 @@ require (
 	modernc.org/mathutil v1.5.0 // indirect
 	modernc.org/memory v1.6.0 // indirect
 	modernc.org/opt v0.1.3 // indirect
-	modernc.org/sqlite v1.26.0 // indirect
 	modernc.org/strutil v1.1.3 // indirect
 	modernc.org/token v1.0.1 // indirect
 	nhooyr.io/websocket v1.8.7 // indirect

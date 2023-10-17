@@ -5,16 +5,15 @@ import (
 	"net/http"
 
 	"github.com/Micah-Shallom/pkg/config"
+	"github.com/Micah-Shallom/pkg/routes"
 	"github.com/gorilla/mux"
 )
 
 func main() {
 	r := mux.NewRouter()
 
+	routes.MoviesRouter(r)
 	http.Handle("/", r)
-	config.Connect()
-	d := config.GetDB()
-	fmt.Println(d)
 
 	fmt.Printf("Starting Server on Port 8000")
 	// err := http.ListenAndServe(":8000", r)
