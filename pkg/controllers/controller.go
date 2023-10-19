@@ -52,9 +52,9 @@ func CreateMovie(w http.ResponseWriter, r *http.Request){
 }
 
 func UpdateMovie(w http.ResponseWriter, r *http.Request){
-	updatemovie := &models.Movie{}
+	newmovie := &models.Movie{}
 	w.Header().Set("Content-Type", "application/json")
-	utils.ParseBody(r, updatemovie)
+	utils.ParseBody(r, newmovie)
 	params := mux.Vars(r)
 	id := params["id"]
 	movieID, err := strconv.Atoi(id)
@@ -63,18 +63,22 @@ func UpdateMovie(w http.ResponseWriter, r *http.Request){
 	}
 
 	movie, db := models.GetMovieByID(movieID)
-	if updatemovie.Isbn != "" {
-		movie.Isbn = updatemovie.Isbn
+	if newmovie.Isbn != "" {
+		movie.Isbn = newmovie.Isbn
 	}
-	if updatemovie.Title != "" {
-		movie.Title = updatemovie.Title
+
+	if newmovie.Title != "" {
+		movie.Title = newmovie.Title
 	}
-	if updatemovie.Director.FirstName != "" {
-		movie.Director.FirstName = updatemovie.Director.FirstName
+
+	if newmovie.Director.FirstName != "" {
+		movie.Director.FirstName = newmovie.Director.FirstName
 	}
-	if updatemovie.Director.LastName != "" {
-		movie.Director.LastName = updatemovie.Director.LastName
+
+	if newmovie.Director.LastName != "" {
+		movie.Director.LastName = newmovie.Director.LastName
 	}
+
 	db.Save(&movie)
 	body, jsonerr := json.Marshal(movie)
 

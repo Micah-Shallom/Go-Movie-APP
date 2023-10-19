@@ -11,13 +11,14 @@ var db *gorm.DB
 
 type Movie struct {
 	gorm.Model
-	ID       string    `json:"id"`
+	// ID       string    `json:"id"`
 	Isbn     string    `json:"isbn"`
 	Title    string    `json:"title"`
 	Director *Director `json:"director"`
 }
 
 type Director struct {
+	gorm.Model
 	FirstName string `json:"firstname"`
 	LastName  string `json:"lastname"`
 }
