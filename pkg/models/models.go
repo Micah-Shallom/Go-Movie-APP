@@ -2,7 +2,6 @@ package models
 
 import (
 	"fmt"
-	"log"
 	"github.com/Micah-Shallom/pkg/config"
 	"github.com/jinzhu/gorm"
 )
@@ -15,8 +14,8 @@ type Movie struct {
 	Isbn     string    `json:"isbn"`
 	Title    string    `json:"title"`
 	Director *Director `json:"director"`
+	DirectorID uint		`json:"director_id"` //foreign key
 }
-
 type Director struct {
 	gorm.Model
 	FirstName string `json:"firstname"`
@@ -26,15 +25,16 @@ type Director struct {
 func init() {
 	config.Connect()
 	db = config.GetDB()
+	db.AutoMigrate(&Director{})
 	db.AutoMigrate(&Movie{})
+	db.Model(&Movie{}).AddForeignKey("director_id", "directors(id)", "CASCADE", "CASCADE")
 	fmt.Println("Database Connection Successful")
-	log.Println(db)
 }
 
 
 func GetAllMovies() []Movie {
 	var movies []Movie
-	db.Find(&movies)
+	db.Preload("Director").Find(&movies)
 	return movies
 }
 
@@ -51,7 +51,7 @@ func (m *Movie) CreateMovie () *Movie {
 	return m
 }
 
-func DeleteBook(ID int) Movie {
+func DeleteMovie(ID int) Movie {
 	var movie Movie
 	db.Where("ID=?", ID).Delete(movie)
 	return movie

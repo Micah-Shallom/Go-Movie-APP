@@ -4,6 +4,12 @@
     padding: None;
     margin: None;
 }
+ul, li {
+    list-style: none;
+}
+ul {
+    width: 300px;
+}
 
 body {
     background-color: rgb(255, 255, 255);
@@ -89,7 +95,7 @@ input[type="text"] {
     flex-direction:column;
 }
 
-.movie-container div {
+.movie-container .movie-info {
     box-shadow: 5px 8px 8px 5px rgba(0, 0, 0, 0.2); 
     display: flex;
     justify-content:space-around;
@@ -99,13 +105,6 @@ input[type="text"] {
     padding: 10px;
 }
 
-ul, li {
-    list-style: none;
-}
-ul {
-    width: 300px;
-}
-
 .movie-container li {
     padding: 10px;
     background-color: #fff;
@@ -113,6 +112,22 @@ ul {
     border-radius: 5px;
 }
 
-.movie-container div .title {
+.movie-container .movie-info .title {
     width: 300px;
+}
+
+.movie-container .movie-info .other-info .icons a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color:inherit;
+
+}
+
+.movie-container .movie-info .other-info .icons {
+    border: 3px solid #002b24;
+    padding: 5px 0;
+}
+
+.movie-container .movie-info .other-info .icons a i {
+    color:#007c67;
+    font-size: 20px;
 }
