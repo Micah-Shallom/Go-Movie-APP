@@ -30,7 +30,10 @@ func GetMovie(w http.ResponseWriter, r *http.Request){
 		fmt.Println(err)
 	}
 	movie, _ := models.GetMovieByID(movieID)
-	body , _ := json.Marshal(movie)
+	body , jsonerr := json.Marshal(movie)
+	if jsonerr != nil {
+		fmt.Println(err)
+	}
 	w.WriteHeader(http.StatusOK)
 	w.Write(body)
 }
@@ -56,7 +59,7 @@ func UpdateMovie(w http.ResponseWriter, r *http.Request){
 	id := params["id"]
 	movieID, err := strconv.Atoi(id)
 	if err != nil {
-		fmt.Println("Error converting str to integer", err)
+		fmt.Println("Error while parsing", err)
 	}
 
 	movie, db := models.GetMovieByID(movieID)
@@ -73,11 +76,29 @@ func UpdateMovie(w http.ResponseWriter, r *http.Request){
 		movie.Director.LastName = updatemovie.Director.LastName
 	}
 	db.Save(&movie)
-	body, _ := json.Marshal(movie)
+	body, jsonerr := json.Marshal(movie)
+
+	if jsonerr != nil {
+		fmt.Println(jsonerr)
+	}
+
 	w.WriteHeader(http.StatusOK)
 	w.Write(body)
 }
 
 func DeleteMovie(w http.ResponseWriter, r *http.Request){
 	w.Header().Set("Content-Type", "application/json")
+	params := mux.Vars(r)
+	id := params["id"]
+	movieID, err := strconv.Atoi(id)
+	if err != nil {
+		fmt.Println("Error whle parsing", err)
+	}
+	movie := models.DeleteBook(movieID)
+	body, jsonerr := json.Marshal(movie)
+	if jsonerr != nil {
+		fmt.Println(jsonerr)
+	}
+	w.WriteHeader(http.StatusOK)
+	w.Write(body)
 }
