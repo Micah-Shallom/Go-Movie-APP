@@ -2,7 +2,7 @@ package models
 
 import (
 	"fmt"
-
+	"log"
 	"github.com/Micah-Shallom/pkg/config"
 	"github.com/jinzhu/gorm"
 )
@@ -26,7 +26,8 @@ func init() {
 	config.Connect()
 	db = config.GetDB()
 	db.AutoMigrate(&Movie{})
-	fmt.Println(db)
+	fmt.Println("Database Connection Successful")
+	log.Println(db)
 }
 
 
@@ -44,5 +45,13 @@ func GetMovieByID(ID int) (*Movie, *gorm.DB) {
 
 
 func (m *Movie) CreateMovie () *Movie {
+	db.NewRecord(m)
+	db.Create(&m)
+	return m
+}
 
+func DeleteBook(ID int) Movie {
+	var movie Movie
+	db.Where("ID=?", ID).Delete(movie)
+	return movie
 }
