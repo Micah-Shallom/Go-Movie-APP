@@ -98,9 +98,9 @@ func DeleteMovie(w http.ResponseWriter, r *http.Request){
 	if err != nil {
 		fmt.Println("Error whle parsing", err)
 	}
-	movie := models.DeleteMovie(movieID)
-	fmt.Println(movie)
+	movie, _ := models.DeleteMovie(movieID)
 	body, jsonerr := json.Marshal(movie)
+	fmt.Println(string(body))
 	if jsonerr != nil {
 		fmt.Println(jsonerr)
 	}

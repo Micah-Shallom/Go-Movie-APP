@@ -13,7 +13,7 @@ type Movie struct {
 	// ID       string    `json:"id"`
 	Isbn     string    `json:"isbn"`
 	Title    string    `json:"title"`
-	Director *Director `json:"director"`
+	Director *Director `json:"director" gorm:"foreignKey:DirectorID; constraint:OnDelete:CASCADE" `
 	DirectorID uint		`json:"director_id"` //foreign key
 }
 type Director struct {
@@ -51,8 +51,21 @@ func (m *Movie) CreateMovie () *Movie {
 	return m
 }
 
-func DeleteMovie(ID int) Movie {
+// func DeleteMovie(ID int) Movie {
+// 	var movie Movie
+// 	db.Where("ID=?", ID).Delete(movie)
+// 	fmt.Println(movie)
+// 	return movie
+// }
+
+func DeleteMovie(ID int) (*Movie, error) {
 	var movie Movie
-	db.Where("ID=?", ID).Delete(movie)
-	return movie
+	if err := db.Preload("Director").Where("ID=?", ID).First(&movie).Error; err != nil {
+		return nil, err
+	}
+	if err := db.Delete(&movie).Error; err != nil {
+		return nil, err
+	}
+	fmt.Println(movie)
+	return &movie, nil
 }

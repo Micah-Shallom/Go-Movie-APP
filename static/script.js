@@ -23,8 +23,18 @@ async function deleteMovie(id) {
         if (!response.ok){
             throw new Error("Network response was not okay")
         }
+        // Get the id of the current element from the response url
+        var urlString = response.url
+        var id = urlString.split("/").pop()
+        
+        // get the element with its unique id assigned during dynamic creation from responsebody
+        var elementToRemove = document.querySelector(`.movie-info-${id}`)
 
-        console.log(response.json())
+        // if the element exists, remove it
+        if (elementToRemove) {
+            elementToRemove.parentNode.removeChild(elementToRemove)
+        }
+
     } catch (error) {
         console.error("Error deleting movie", error)
     }
@@ -107,6 +117,7 @@ async function getMovies(url) {
        responseBody.forEach((item) => {
            const itemContainer = document.createElement("div")
            itemContainer.classList.add("movie-info");
+           itemContainer.classList.add(`movie-info-${item.ID}`);
 
 
             const itemHTML = `
@@ -116,8 +127,8 @@ async function getMovies(url) {
                 <li>ISBN: ${item.isbn}</li>
                 <li>Director: ${item.director.firstname} ${item.director.lastname}</li>
                 <div class="icons">
-                    <a href="#" onclick="deleteMovie(${item.ID})"><i class="fa-solid fa-trash" style="color:#ff1100;" ></i></a>
-                    <a href="#"><i class="fa-solid fa-user-pen"></i></a>
+                    <a href="javascript:void(0);" onclick="deleteMovie(${item.ID})"><i class="fa-solid fa-trash" style="color:#ff1100;" ></i></a>
+                    <a href="javascript:void(0);"><i class="fa-solid fa-user-pen"></i></a>
                 </div>
             </ul>
             `;

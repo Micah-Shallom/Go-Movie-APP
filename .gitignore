@@ -1,3 +1,2 @@
-.env
 *.txt
-/pkg/config/.env
+.env
