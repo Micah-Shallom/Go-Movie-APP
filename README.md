@@ -93,5 +93,3 @@ Feel free to contribute to this project by creating issues or submitting pull re
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-You can copy and paste this Markdown content into a README.md file in your project repository. Make sure to replace the placeholders such as the repository URL, your username, and any additional information specific to your project.
