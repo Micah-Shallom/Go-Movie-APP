@@ -63,6 +63,40 @@
                     </ul>
                 </div> -->
             </div>
+
+            <!-- update movie item modal implementation -->
+
+            <div class="modal">
+                <form action="" id="movie-form" class="modal-form">
+                    <div class="modal-header">
+                        <span class="close">&times;</span>
+                        <h2>Update Movies </h2>
+                      </div>
+                    <div class="input_field">
+                        <label for="isbn">ISBN</label><br/>
+                        <input type="text" name="isbn" placeholder="Enter ISBN" id="isbn" class="modal-isbn" required>
+                    </div>
+                    <div class="input_field">
+                        <label for="title">Title</label><br/>
+                        <input type="text" name="title" placeholder="Enter Title" id="title" class="modal-title" required>
+                    </div>
+                    <div class="input_field director">
+                        <div class="dir-field">
+                            <label for="dir-firstname">Director Firstname</label><br/>
+                            <input type="text" name="Enter Director Firstname" placeholder="Enter director's Firstname" id="dir-firstname" class="modal-firstname" required><br/>
+                        </div>
+    
+                        <div class="dir-field">
+                            <label for="dir-lastname">Director LastName</label><br/>
+                            <input type="text" name="Enter Director Lastname" placeholder="Enter director's lastname" id="dir-lastname" class="modal-lastname" required>
+                        </div>
+                    </div>
+                    <div class="input_field">
+                        <button id="submit-btn" class="update-btn" type="submit"> Update Movie</button>
+                    </div>
+                </form>
+            </div>
+
         </div>
     </div>
     <script src="./script.js"></script>

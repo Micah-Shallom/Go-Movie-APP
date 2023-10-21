@@ -1,7 +1,7 @@
 var listBTN = document.getElementById("list-btn");
 var submitBTN = document.getElementById("submit-btn");
 var movieForm =  document.getElementById("movie-form")
-submitBTN.addEventListener("click", submitMovies)
+// submitBTN.addEventListener("click", submitMovies)
 listBTN.addEventListener("click", listMovies);
 
 const address = "http://localhost:8000"
@@ -18,7 +18,7 @@ function submitMovies(event) {
 async function deleteMovie(id) {
     try {
         const response = await fetch(`${address}/movies/${id}`,{
-            method: "DELETE",
+            method: "DELETE"
         })
         if (!response.ok){
             throw new Error("Network response was not okay")
@@ -40,13 +40,60 @@ async function deleteMovie(id) {
     }
 }
 
+function exposeModal(id) {
+    // get the element that opens the modal
+    // var updateBTN = document.querySelector(".modal-open")
+    var modal =  document.querySelector(".modal")
+    modal.style.display = "block";
+
+    // when the update button is clicked do something
+    var updatebutton = document.querySelector(".update-btn")
+//     updatebutton.onclick =  function(id) {
+//         updateMovie(id)
+//         console.log("UPDATE COMPLETED")
+
+//     }
+}
+
+async function updateMovie(id) {
+    try {
+        var isbn = document.querySelector(".modal-isbn").value;
+        var title = document.querySelector(".modal-title").value;
+        var firstname = document.querySelector(".modal-firstname").value;
+        var lastname = document.querySelector(".modal-lastname").value;
+
+        var formData = {
+            // id,
+            isbn,
+            title,
+            director: {
+                firstname,
+                lastname
+            }
+        }
+         
+        const response = await fetch(`${address}/movies/${id}`,{
+            method: "PUT",
+            body:JSON.stringify(formData)
+        })
+        if (!response.ok) {
+            console.log("Network response was not okay")
+        }
+        console.log(response.json())
+    } catch (error) {
+        console.error("Error fetching response", error)
+    }
+}
+
 // Add an event listener to the form's submit event To prevent the default form submission behavior .
 movieForm.addEventListener("submit", (event) => {
     if (event.target.id == "submit-btn") {
         event.preventDefault()
-        submitMovies(event)
     }
+    submitMovies(event)
 })
+
+
 
 async function checkURLStatus(url) {
     const response = await fetch(url);
@@ -110,7 +157,6 @@ async function getMovies(url) {
        }
 
        const responseBody = await response.json()
-    //    console.log(responseBody)
        var container = document.querySelector(".movie-container")
        container.innerHTML = ""
 
@@ -128,17 +174,29 @@ async function getMovies(url) {
                 <li>Director: ${item.director.firstname} ${item.director.lastname}</li>
                 <div class="icons">
                     <a href="javascript:void(0);" onclick="deleteMovie(${item.ID})"><i class="fa-solid fa-trash" style="color:#ff1100;" ></i></a>
-                    <a href="javascript:void(0);"><i class="fa-solid fa-user-pen"></i></a>
+                    <a href="javascript:void(0);" onclick="exposeModal(${item.ID})"><i class="fa-solid fa-user-pen modal-open"></i></a>
                 </div>
             </ul>
             `;
             itemContainer.innerHTML = itemHTML
             container.appendChild(itemContainer)
        })
-    // const itemContainer = document.createElement("div");
-    
-        
     } catch (error) {
         console.error(`Error fetching data ${error}`)
     }
 };
+
+var modal =  document.querySelector(".modal")
+//when a user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+//get the element that closes the modal
+var span = document.querySelector(".close")
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+  }

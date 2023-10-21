@@ -20,7 +20,7 @@ func main() {
 	routes.MoviesRouter(r)
 	http.Handle("/", r)
 
-	fmt.Printf("Starting Server on Port 8000")
+	fmt.Printf("Starting Server on Port 8000\n")
 	err := http.ListenAndServe(":8000", handlers.CORS(headers,methods, origins)(r))
 	if errors.Is(err, http.ErrServerClosed) {
 		fmt.Printf("The Server has closed")
