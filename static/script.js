@@ -1,8 +1,15 @@
 var listBTN = document.getElementById("list-btn");
 var submitBTN = document.getElementById("submit-btn");
-var movieForm =  document.getElementById("movie-form")
-// submitBTN.addEventListener("click", submitMovies)
+var movieForm =  document.getElementById("movie-form") //main form on application homepage
+var updateForm = document.querySelector(".modal-form")
 listBTN.addEventListener("click", listMovies);
+//get the element that closes the modal
+var span = document.querySelector(".close")
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
 
 const address = "http://localhost:8000"
 
@@ -47,15 +54,41 @@ function exposeModal(id) {
     modal.style.display = "block";
 
     // when the update button is clicked do something
-    var updatebutton = document.querySelector(".update-btn")
-//     updatebutton.onclick =  function(id) {
-//         updateMovie(id)
-//         console.log("UPDATE COMPLETED")
+    updateForm.addEventListener("submit", (event) => {
+        event.preventDefault()
 
-//     }
+        // get the formdata from the item that has been updated
+        var formData = updateMovie(event, id)
+        console.log("Movie information updated successfully")
+        // close modal after update 
+        modal.style.display = "none";
+
+        var elementToUpdate = document.querySelector(`.movie-info-${id}`)
+        // var title = elementToUpdate.querySelector('.title')
+        // var isbn = elementToUpdate.querySelector('.movie-isbn')
+        // var director = elementToUpdate.querySelector('.movie-director')
+
+        formData.then(items => {
+            console.log(items)
+            elementToUpdate.innerHTML = `
+                <li class="title">Title: ${items.title} </li>
+                <ul class="other-info">
+                    <li class="movie-id">ID: ${id}</li>
+                    <li class="movie-isbn">ISBN: ${items.isbn}</li>
+                    <li class="movie-director">Director: ${items.director.firstname} ${items.director.lastname}</li>
+                    <div class="icons">
+                        <a href="javascript:void(0);" onclick="deleteMovie(${id})"><i class="fa-solid fa-trash" style="color:#ff1100;"></i></a>
+                        <a href="javascript:void(0);" onclick="exposeModal(${id})"><i class="fa-solid fa-user-pen modal-open"></i></a>
+                    </div>
+                </ul>
+            `
+        })
+       
+    })
 }
 
-async function updateMovie(id) {
+async function updateMovie(event, id) {
+    event.preventDefault()
     try {
         var isbn = document.querySelector(".modal-isbn").value;
         var title = document.querySelector(".modal-title").value;
@@ -71,7 +104,7 @@ async function updateMovie(id) {
                 lastname
             }
         }
-         
+        jsonUpdated = formData
         const response = await fetch(`${address}/movies/${id}`,{
             method: "PUT",
             body:JSON.stringify(formData)
@@ -79,7 +112,7 @@ async function updateMovie(id) {
         if (!response.ok) {
             console.log("Network response was not okay")
         }
-        console.log(response.json())
+        return formData
     } catch (error) {
         console.error("Error fetching response", error)
     }
@@ -110,7 +143,6 @@ async function addMovie(url) {
     try {
         const response = checkURLStatus(url)
 
-        // var id = document.getElementById("id").value;
         var isbn = document.getElementById("isbn").value;
         var title = document.getElementById("title").value;
         var firstname = document.getElementById("dir-firstname").value;
@@ -169,9 +201,9 @@ async function getMovies(url) {
             const itemHTML = `
             <li class="title">Title: ${item.title}</li>
             <ul class="other-info">
-                <li>ID: ${item.ID}</li>
-                <li>ISBN: ${item.isbn}</li>
-                <li>Director: ${item.director.firstname} ${item.director.lastname}</li>
+                <li class="movie-id">ID: ${item.ID}</li>
+                <li class="movie-isbn">ISBN: ${item.isbn}</li>
+                <li class="movie-director">Director: ${item.director.firstname} ${item.director.lastname}</li>
                 <div class="icons">
                     <a href="javascript:void(0);" onclick="deleteMovie(${item.ID})"><i class="fa-solid fa-trash" style="color:#ff1100;" ></i></a>
                     <a href="javascript:void(0);" onclick="exposeModal(${item.ID})"><i class="fa-solid fa-user-pen modal-open"></i></a>
@@ -192,11 +224,4 @@ window.onclick = function(event) {
     if (event.target == modal) {
       modal.style.display = "none";
     }
-  }
-
-//get the element that closes the modal
-var span = document.querySelector(".close")
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
   }

@@ -20,10 +20,11 @@ func Connect() {
 	}
 
 	// Get db credentials from environment variable
+	dbusername := os.Getenv("dbusername")
+	dbuserpassword := os.Getenv("dbuserpassword")
 	dbname := os.Getenv("dbname")
-	dbpassword := os.Getenv("dbpassword")
 	
-	var dbUrl = dbname+":"+dbpassword+"@tcp(localhost:9000)/moviesdb?charset=utf8&parseTime=True&loc=Local"
+	var dbUrl = dbusername+":"+dbuserpassword+"@tcp(localhost:9000)/"+dbname+"?charset=utf8&parseTime=True&loc=Local"
 
 	d, err := gorm.Open("mysql", dbUrl)
 

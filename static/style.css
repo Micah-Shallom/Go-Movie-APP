@@ -74,7 +74,7 @@ input[type="text"] {
     box-shadow: 0 0 10px #007c67; 
   }
 
-  #submit-btn {
+  #submit-btn, #list-btn {
     background-color: #007c67;
     color: #fff;
     padding: 10px 20px;
@@ -83,7 +83,7 @@ input[type="text"] {
     cursor: pointer;
 }
 
-#submit-btn:hover {
+#submit-btn:hover, #list-btn:hover {
     background-color: #002b24;
 }
 

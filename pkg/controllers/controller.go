@@ -61,24 +61,22 @@ func UpdateMovie(w http.ResponseWriter, r *http.Request){
 	if err != nil {
 		fmt.Println("Error while parsing", err)
 	}
-
 	movie, db := models.GetMovieByID(movieID)
 	if newmovie.Isbn != "" {
 		movie.Isbn = newmovie.Isbn
 	}
-
+	
 	if newmovie.Title != "" {
 		movie.Title = newmovie.Title
 	}
-
+	
 	if newmovie.Director.FirstName != "" {
 		movie.Director.FirstName = newmovie.Director.FirstName
 	}
-
+	
 	if newmovie.Director.LastName != "" {
 		movie.Director.LastName = newmovie.Director.LastName
 	}
-
 	db.Save(&movie)
 	body, jsonerr := json.Marshal(movie)
 

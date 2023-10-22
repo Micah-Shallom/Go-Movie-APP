@@ -40,7 +40,7 @@ func GetAllMovies() []Movie {
 
 func GetMovieByID(ID int) (*Movie, *gorm.DB) {
 	var movie Movie
-	db := db.Where("ID=?", ID).Find(&movie)
+	db := db.Preload("Director").Where("ID=?", ID).Find(&movie)
 	return &movie, db
 }
 
