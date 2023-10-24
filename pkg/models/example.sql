@@ -1,4 +1,4 @@
--- This is just an example of raw SQL that does the equivilent of the first 30 lines of 
+-- This is just an example of raw SQL that does the equivilent of the first 30 lines of models.go
 -- Create Director table
 CREATE TABLE IF NOT EXISTS directors (
     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
