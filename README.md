@@ -12,7 +12,10 @@ This Go application serves as a basic RESTful API for managing movie data. It al
 
 ## Prerequisites
 
-To run this server, you need to have [Go](https://golang.org/doc/install) installed on your system.
+To run this server, you need to have:
+
+- [Go](https://golang.org/doc/install) installed on your system.
+- Docker installed, if you plan to use the `docker-compose.yml` file to run MariaDB.
 
 ## Installation
 
@@ -26,23 +29,48 @@ To run this server, you need to have [Go](https://golang.org/doc/install) instal
    ```bash
    cd Go-Movie-APP
    ```
-3. Run the server:
+3. Copy the .env.example to .env and modify the settings:
+
+   ```
+   cp .env.example .env
+   ```
+4. Start MariaDB using Docker Compose(or have a mysql database running):
+
+   ```
+   docker-compose up -d
+   ```
+4. Run the server:
 
    ```bash
-   go run main.go
+   go run cmd/main/main.go
    ```
 
    The server will start on port 8000 by default.
-4. Access the server on Browser:
+5. Access the server on Browser:
 
 ```http
-http:localhost:8000
+http://localhost:8000
 ```
 
 ## Usage
 
 - Use an API client (e.g., [Postman](https://www.postman.com/)) or make HTTP requests to interact with the server's endpoints.
 - You can perform various operations such as listing all movies, retrieving a specific movie by ID, creating a new movie record, updating an existing movie record, and deleting a movie record.
+
+## Configuration
+
+The application uses a `.env` file for configuration. The `.env.example` file serves as a template. The following variables are configurable:
+
+- `dbusername`: Database username
+- `dbuserpassword`: Database user password
+- `dbname`: Database name
+- `dbrootpassword`: Database root password
+- `DB_HOST`: Database host (default is `localhost`)
+- `DB_PORT`: Database port (default is 9000)
+- `TIME_ZONE`: Timezone for the database
+- `DB_CONFIG_DIRECTORY`: Path to database config directory
+
+Make sure to update these values in the `.env` file before running the application.
 
 ## Endpoints
 
