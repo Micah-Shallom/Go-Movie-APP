@@ -39,14 +39,14 @@ To run this server, you need to have:
    ```
    docker-compose up -d
    ```
-4. Run the server:
+5. Run the server:
 
    ```bash
    go run cmd/main/main.go
    ```
 
    The server will start on port 8000 by default.
-5. Access the server on Browser:
+6. Access the server on Browser:
 
 ```http
 http://localhost:8000
