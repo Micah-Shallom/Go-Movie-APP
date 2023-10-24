@@ -48,9 +48,9 @@ To run this server, you need to have:
    The server will start on port 8000 by default.
 6. Access the server on Browser:
 
-```http
-http://localhost:8000
-```
+   ```http
+   http://localhost:8000
+   ```
 
 ## Usage
 
